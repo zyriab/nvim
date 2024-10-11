@@ -1,0 +1,16 @@
+return {
+    require("plugins.utils.harpoon"),
+    require("plugins.utils.live-server"),
+    require("plugins.utils.nvim-tree"),
+    require("plugins.utils.telescope"),
+    require("plugins.utils.undotree"),
+    require("plugins.utils.neogen"),
+    require("plugins.utils.which-key"),
+    require("plugins.utils.session-manager"),
+    -- require("plugins.utils.vim-rooter"),
+    require("plugins.utils.qf-helper"),
+    require("plugins.utils.goto-breakpoints"),
+    require("plugins.utils.global-note"),
+    require("plugins.utils.outline"),
+    require("plugins.utils.gopher"),
+}
