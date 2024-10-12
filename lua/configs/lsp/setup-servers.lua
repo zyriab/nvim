@@ -18,6 +18,7 @@ local servers = {
     clangd = {},
     cssls = {},
     marksman = {},
+    nil_ls = {},
     sqlls = {},
     taplo = {},
 
@@ -177,11 +178,19 @@ local servers = {
     },
 }
 
+-- Servers not available through the Mason Registry but supported by lspconfig.
+-- Most likely manually installed on the system.
+local external_servers = {
+    nixd = {}, -- https://github.com/nix-community/nixd/blob/main/nixd/docs/editor-setup.md
+}
+
 local mason_tools_installs = vim.tbl_extend("keep", {}, vim.tbl_keys(servers))
 
 local function setup_handlers(capabilities)
+    local srv = vim.tbl_extend("keep", servers, external_servers)
+
     -- Add specific handlers for servers that need custom setup
-    for server_name, server_config in next, servers, nil do
+    for server_name, server_config in next, srv, nil do
         lspconfig[server_name].setup({
             capabilities = capabilities,
             on_attach = on_attach,
