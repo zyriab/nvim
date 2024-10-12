@@ -112,8 +112,6 @@ return function()
             goto FALLBACK
         end
 
-        vim.cmd("noa w")
-
         local current_file_name = vim.fn.expand("%")
         local cmd = {
             "templ",
