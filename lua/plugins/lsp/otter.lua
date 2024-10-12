@@ -1,3 +1,5 @@
+local languages = { "javascript", "css", "html", "typescript", "bash", "fish", "lua" }
+
 return {
     "jmbuhr/otter.nvim",
     dependencies = {
@@ -54,7 +56,7 @@ return {
 
                 vim.keymap.set("n", "<leader>fm", format_buffer, { desc = "[F]or[M]at the current buffer with LSP" })
 
-                if filetype == filetypes.html or filetype == filetypes.webc then
+                if filetype == filetypes.html or filetype == filetypes.webc or filetype == filetypes.nix then
                     vim.keymap.set("n", "gd", function()
                         vim.lsp.buf.definition({ on_list })
                     end, { desc = "[G]oto [D]efinition" })
@@ -79,7 +81,7 @@ return {
                         vim.lsp.buf.workspace_symbol("", { on_list })
                     end, { desc = "[W]orkspace [S]ymbols" })
 
-                    otter.activate({ "javascript", "css", "html", "typescript" })
+                    otter.activate(languages, true, true, nil)
                 else
                     vim.keymap.set("n", "gd", telescope.lsp_definitions, { desc = "[G]oto [D]efinition" })
                     vim.keymap.set("n", "gr", telescope.lsp_references, { desc = "[G]oto [R]eferences" })
