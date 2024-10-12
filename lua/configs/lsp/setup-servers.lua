@@ -17,13 +17,9 @@ local servers = {
     bashls = {},
     clangd = {},
     cssls = {},
-    dockerls = {},
-    eslint = {},
-    graphql = {},
     marksman = {},
     sqlls = {},
     taplo = {},
-    terraformls = {},
 
     arduino_language_server = {
         cmd = {
@@ -205,8 +201,6 @@ return function()
     mason_lspconfig.setup()
 
     neodev.setup()
-
-    -- vim.lsp.set_log_level("OFF")
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
