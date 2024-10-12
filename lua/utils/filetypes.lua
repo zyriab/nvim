@@ -24,6 +24,7 @@ return {
     liquid = "liquid",
     lua = "lua",
     markdown = "markdown",
+    nix = "nix",
     noice = "noice",
     notify = "notify",
     nvimtree = "NvimTree",
