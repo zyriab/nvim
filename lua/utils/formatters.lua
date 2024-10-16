@@ -12,7 +12,7 @@ M.run_command_on_buffer = function(cmd, bufnr)
     local temp_file_name = vim.fn.tempname()
 
     vim.api.nvim_buf_call(bufnr, function()
-        vim.cmd("silent write " .. vim.fn.fnameescape(temp_file_name))
+        vim.cmd("silent noa write " .. vim.fn.fnameescape(temp_file_name))
     end)
 
     local temp_file = io.open(temp_file_name, "r")
@@ -36,7 +36,7 @@ M.run_command_on_buffer = function(cmd, bufnr)
     end
 
     local opts = {
-        input = temp_content,
+        stdin = temp_content,
         text = true,
     }
 
