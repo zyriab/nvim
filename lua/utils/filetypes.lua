@@ -29,6 +29,7 @@ return {
     notify = "notify",
     nvimtree = "NvimTree",
     outline = "Outline",
+    sql = "sql",
     templ = "templ",
     tsx = "typescriptreact",
     typescript = "typescript",
