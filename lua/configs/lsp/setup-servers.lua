@@ -17,9 +17,11 @@ local servers = {
     bashls = {},
     clangd = {},
     cssls = {},
+    eslint = {},
     marksman = {},
     nil_ls = {},
-    sqlls = {},
+    prismals = {},
+    sqls = {},
     taplo = {},
 
     arduino_language_server = {
