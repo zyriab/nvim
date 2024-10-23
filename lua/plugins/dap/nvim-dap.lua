@@ -13,12 +13,10 @@ return {
 
         "zyriab/npm-dap.nvim",
         "leoluz/nvim-dap-go",
+        "mxsdev/nvim-dap-vscode-js",
         {
-            "mxsdev/nvim-dap-vscode-js",
-            opts = {
-                debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
-                adapters = { "pwa-node", "pwa-chrome" },
-            },
+            "microsoft/vscode-js-debug",
+            build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
         },
     },
     config = function()
@@ -42,6 +40,7 @@ return {
             ensure_installed = {
                 "delve",
                 "codelldb",
+                "cpptools",
             },
         })
 
