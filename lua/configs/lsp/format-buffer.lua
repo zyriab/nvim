@@ -139,6 +139,7 @@ return function()
         -- FIXME: outputs an error about a non existing file (but it still works?)
         -- it seems the (temp?) file does not exist the first time we format
         -- then it's fine for all files
+        -- update: might have been the return I forgot at the end of this haha
         local current_file_name = vim.fn.expand("%")
         local cmd = {
             "nixfmt <",
@@ -147,6 +148,45 @@ return function()
         }
 
         _ = formatters.run_command_on_buffer(cmd)
+
+        return
+    end
+
+    -- [[ SQL ]]
+    if filetype == filetypes.sql then
+        if vim.fn.executable("sleek") ~= 1 then
+            vim.notify("sleek is not installed, skipping formatting", vim.log.levels.ERROR)
+            return
+        end
+
+        local bufnr = vim.api.nvim_get_current_buf()
+        local temp_file_name = vim.fn.tempname()
+
+        vim.api.nvim_buf_call(bufnr, function()
+            vim.cmd("silent noa write " .. vim.fn.fnameescape(temp_file_name))
+        end)
+
+        vim.cmd("silent !sleek " .. vim.fn.fnameescape(temp_file_name))
+
+        local temp_file = io.open(temp_file_name, "r")
+
+        if temp_file == nil then
+            vim.notify_once("Failed to read formatted file", vim.log.levels.ERROR)
+
+            return
+        end
+
+        local temp_content = temp_file:read("*all")
+        local formatted = vim.split(temp_content, " ")
+        formatted = vim.split(temp_content, "\n")
+
+        temp_file:close()
+
+        os.remove(temp_file_name)
+
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, formatted)
+
+        return
     end
 
     -- [[ Fallback ]]

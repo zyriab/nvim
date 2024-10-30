@@ -21,7 +21,6 @@ local servers = {
     marksman = {},
     nil_ls = {},
     prismals = {},
-    sqls = {},
     taplo = {},
 
     arduino_language_server = {
@@ -146,6 +145,16 @@ local servers = {
         },
     },
 
+    sqls = {
+        on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+
+            require("sqls").on_attach(client, bufnr)
+            on_attach(client, bufnr)
+        end,
+    },
+
     tailwindcss = {
         filetypes = {
             filetypes.html,
@@ -203,7 +212,7 @@ local function setup_handlers(capabilities)
     for server_name, server_config in next, srv, nil do
         lspconfig[server_name].setup({
             capabilities = capabilities,
-            on_attach = on_attach,
+            on_attach = server_config.on_attach or on_attach,
             cmd = server_config.cmd,
             settings = server_config.settings,
             filetypes = server_config.filetypes,
@@ -231,6 +240,8 @@ return function()
 
     -- Making sure `.h` files are declared as C files and not C++
     vim.cmd("let g:c_syntax_for_h = 1")
+    -- Setting default SQL dialect as PostgreSQL
+    vim.cmd("let g:sql_type_default = 'pgsql'")
 
     setup_handlers(capabilities)
 end
