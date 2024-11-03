@@ -136,10 +136,7 @@ return function()
             return
         end
 
-        -- FIXME: outputs an error about a non existing file (but it still works?)
-        -- it seems the (temp?) file does not exist the first time we format
-        -- then it's fine for all files
-        -- update: might have been the return I forgot at the end of this haha
+        -- FIXME: on NixOS, cannot find `_system.lua`
         local current_file_name = vim.fn.expand("%")
         local cmd = {
             "nixfmt <",
@@ -147,7 +144,11 @@ return function()
             current_file_name,
         }
 
-        _ = formatters.run_command_on_buffer(cmd)
+        local ok = formatters.run_command_on_buffer(cmd)
+
+        if not ok then
+            goto FALLBACK
+        end
 
         return
     end
