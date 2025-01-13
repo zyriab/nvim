@@ -236,6 +236,7 @@ return function()
 
     mason_lspconfig.setup({
         ensure_installed = mason_tools_installs,
+        automatic_installation = false,
     })
 
     -- Making sure `.h` files are declared as C files and not C++
