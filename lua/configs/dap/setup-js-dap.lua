@@ -1,21 +1,22 @@
 local dap = require("dap")
-local dap_vscode_js = require("dap-vscode-js")
 local npm_dap = require("npm-dap")
 local utils = require("dap.utils")
 
-return function()
-    -- See: https://github.com/mxsdev/nvim-dap-vscode-js
-    ---@diagnostic disable-next-line: missing-fields
-    dap_vscode_js.setup({
-        debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
-        adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
-        -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-        -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
-        -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
-        -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
-        -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
-    })
+--- Gets a path to a package in the Mason registry.
+--- Prefer this to `get_package`, since the package might not always be
+--- available yet and trigger errors.
+--  See https://github.com/mxsdev/nvim-dap-vscode-js/issues/58#issuecomment-2582575821
+---@param pkg string
+---@param path? string
+local function get_pkg_path(pkg, path)
+    pcall(require, "mason")
+    local root = vim.env.MASON or (vim.fn.stdpath("data") .. "/mason")
+    path = path or ""
+    local ret = root .. "/packages/" .. pkg .. "/" .. path
+    return ret
+end
 
+return function()
     -- See: https://www.lazyvim.org/extras/lang/typescript#nvim-dap
     if not dap.adapters["pwa-node"] then
         dap.adapters["pwa-node"] = {
@@ -25,7 +26,7 @@ return function()
             executable = {
                 command = "node",
                 args = {
-                    vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
+                    get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
                     "${port}",
                 },
             },

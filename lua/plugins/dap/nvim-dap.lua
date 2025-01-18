@@ -13,7 +13,6 @@ return {
 
         "zyriab/npm-dap.nvim",
         "leoluz/nvim-dap-go",
-        "mxsdev/nvim-dap-vscode-js",
         {
             "microsoft/vscode-js-debug",
             build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
