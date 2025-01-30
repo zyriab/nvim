@@ -93,7 +93,7 @@ local servers = {
                 "run",
                 "--enable-all",
                 "--disable",
-                "lll,varnamelen,depguard,funlen,gci,godox,godot,gochecknoglobals,exportloopref,gomnd,tagliatelle,execinquery,cyclop",
+                "lll,varnamelen,depguard,funlen,gci,godox,godot,gochecknoglobals,exportloopref,gomnd,tagliatelle,execinquery,cyclop,recvcheck",
                 "--out-format",
                 "json",
                 "--issues-exit-code=1",
