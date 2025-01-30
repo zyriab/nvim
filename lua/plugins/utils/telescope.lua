@@ -45,6 +45,17 @@ return {
             defaults = {
                 file_ignore_patterns = { "node_modules", "OUTLINE_*", "*.otter.*" },
             },
+            pickers = {
+                find_files = {
+                    -- Override .gitignore for `*_sqlc.go` and `*.sql.go` which are
+                    -- generated files from SQLc
+                    find_command = {
+                        "sh",
+                        "-c",
+                        "(rg --files && rg --files --glob '*_sqlc.go' --glob '*.sql.go' --hidden --no-ignore) | sort | uniq",
+                    },
+                },
+            },
             extensions = {
                 file_browser = {
                     theme = "ivy",
