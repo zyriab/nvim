@@ -50,8 +50,6 @@ M.run_command_on_buffer = function(cmd, bufnr)
         return vim.system(modified_cmd, opts):wait()
     end)
 
-    vim.notify("filename: " .. temp_file_name)
-
     os.remove(temp_file_name)
 
     if not ok then
