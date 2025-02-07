@@ -8,11 +8,11 @@
 local format_buffer = require("configs.lsp.format-buffer")
 
 return function()
-    local autoformat_is_enabled = true
+    local should_autoformat = true
 
     vim.api.nvim_create_user_command("AutoFormatToggle", function()
-        autoformat_is_enabled = not autoformat_is_enabled
-        vim.notify("Setting autoformatting to: " .. tostring(autoformat_is_enabled))
+        should_autoformat = not should_autoformat
+        vim.notify("Setting autoformatting to: " .. tostring(should_autoformat))
     end, {})
 
     -- Create an augroup that is used for managing our formatting autocmds.
@@ -55,7 +55,7 @@ return function()
                 group = get_augroup(client),
                 buffer = bufnr,
                 callback = function()
-                    if not autoformat_is_enabled then
+                    if not should_autoformat then
                         return
                     end
 
