@@ -101,6 +101,30 @@ return function()
         return
     end
 
+    -- [[ Templ ]]
+    if filetype == filetypes.templ then
+        if vim.fn.executable("templ") ~= 1 then
+            vim.notify("Templ is not installed, using LSP formatter", vim.log.levels.ERROR)
+            goto FALLBACK
+        end
+        local current_file_name = vim.fn.expand("%")
+        local cmd = {
+            "templ",
+            "fmt",
+            "-stdout",
+            "-log-level",
+            "error",
+            current_file_name,
+        }
+        local ok = formatters.run_command_on_buffer(cmd)
+
+        if not ok then
+            goto FALLBACK
+        end
+
+        return
+    end
+
     -- [[ WebC/Markdown ]]
     if filetype == filetypes.webc or filetype == filetypes.markdown then
         formatters.lsp_format_skip_frontmatter()
