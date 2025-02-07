@@ -108,27 +108,6 @@ return function()
         return
     end
 
-    -- [[ templ ]]
-    if filetype == filetypes.templ then
-        if vim.fn.executable("templ") ~= 1 then
-            vim.notify("templ is not installed, using LSP formatter", vim.log.levels.ERROR)
-            goto FALLBACK
-        end
-
-        local current_file_name = vim.fn.expand("%")
-        local cmd = {
-            "templ",
-            "fmt",
-            "-stdout",
-            "-log-level",
-            "error",
-            current_file_name,
-        }
-        _ = formatters.run_command_on_buffer(cmd)
-
-        return
-    end
-
     -- [[ Nix ]]
     if filetype == filetypes.nix then
         if vim.fn.executable("nixfmt") ~= 1 then
