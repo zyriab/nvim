@@ -9,7 +9,13 @@ local M = {}
 M.run_command_on_buffer = function(cmd, bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
 
-    local temp_file_name = vim.fn.tempname()
+    local dst_file_path = vim.api.nvim_buf_get_name(bufnr)
+    local dst_file_name = vim.iter(vim.gsplit(dst_file_path, "/", { plain = true, trimempty = true })):last()
+
+    -- tempname usually is an integer like `0`.
+    -- Adding the original filename to it gives `tempname` the proper extension.
+    -- It's useful because some formatters (like Templ) only work on files with the proper extension.
+    local temp_file_name = vim.fn.tempname() .. dst_file_name
 
     vim.api.nvim_buf_call(bufnr, function()
         vim.cmd("silent noa write " .. vim.fn.fnameescape(temp_file_name))
@@ -43,6 +49,8 @@ M.run_command_on_buffer = function(cmd, bufnr)
     local ok, result = pcall(function()
         return vim.system(modified_cmd, opts):wait()
     end)
+
+    vim.notify("filename: " .. temp_file_name)
 
     os.remove(temp_file_name)
 
