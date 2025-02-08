@@ -1,3 +1,5 @@
+local filetypes = require("utils.filetypes")
+
 return {
     "terrortylor/nvim-comment",
     dependencies = {
@@ -6,8 +8,8 @@ return {
             opts = {
                 enable_autocmd = false,
                 languages = {
-                    arduino = "/*%s*/",
-                    html = "<!---%s--->",
+                    [filetypes.arduino] = "/*%s*/",
+                    [filetypes.templ] = "// %s",
                 },
             },
         },
