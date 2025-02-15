@@ -14,7 +14,7 @@ return {
                 pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]],
             },
             search = {
-                pattern = [[\b(KEYWORDS)(\(\w*\))*:]],
+                pattern = [[\b(KEYWORDS)(\([\w-]*\))*:]],
             },
         })
     end,
