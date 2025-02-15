@@ -17,19 +17,24 @@ return {
                     "c",
                     "comment",
                     "cpp",
-                    "css",
                     "go",
+                    "gomod",
+                    "gosum",
+                    "gowork",
+                    "templ",
                     "html",
+                    "css",
+                    "regex",
                     "javascript",
                     "jsdoc",
+                    "typescript",
+                    "tsx",
                     "lua",
                     "nix",
-                    "regex",
-                    "templ",
-                    "tsx",
-                    "typescript",
                     "vim",
                     "vimdoc",
+                    "toml",
+                    "yaml",
                 },
 
                 -- Autoinstall languages that are not installed
@@ -40,7 +45,10 @@ return {
                 ignore_install = {},
                 -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
                 modules = {},
-                highlight = { enable = true },
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
                 indent = { enable = true },
                 incremental_selection = {
                     enable = true,
@@ -96,6 +104,9 @@ return {
                     },
                 },
             })
+
+            vim.api.nvim_set_hl(0, "@tag.attribute.html", { link = "Type" })
+            vim.api.nvim_set_hl(0, "@tag.attribute.templ", { link = "Type" })
         end, 0)
     end,
 }
