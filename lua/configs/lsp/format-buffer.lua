@@ -91,8 +91,12 @@ return function()
         end
 
         local current_file_name = vim.fn.expand("%")
+        local absolute_path = vim.fn.expand("%:p:h")
+        local prettier_config = absolute_path .. "/" .. vim.fn.expand(".prettierrc*")
+        local env = { PRETTIERD_DEFAULT_CONFIG = prettier_config }
         local cmd = { "prettierd", "--no-color", "--parser=" .. parser, current_file_name }
-        local ok = formatters.run_command_on_buffer(cmd)
+
+        local ok = formatters.run_command_on_buffer(cmd, env)
 
         if not ok then
             goto FALLBACK
