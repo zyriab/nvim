@@ -4,9 +4,10 @@ local M = {}
 -- Use this instead of `vim.cmd("%!foo %")`
 --
 --- @param cmd string[] Command to execute w/ arguments
+--- @param env? table<string, string> Environment variables to set when running the command
 --- @param bufnr? integer Number of the buffer the command shall operate on
 --- @return boolean success Whether the operation succeeded or not
-M.run_command_on_buffer = function(cmd, bufnr)
+M.run_command_on_buffer = function(cmd, env, bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
 
     local dst_file_path = vim.api.nvim_buf_get_name(bufnr)
@@ -44,6 +45,7 @@ M.run_command_on_buffer = function(cmd, bufnr)
     local opts = {
         stdin = temp_content,
         text = true,
+        env = env or {},
     }
 
     local ok, result = pcall(function()
