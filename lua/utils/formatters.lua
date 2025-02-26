@@ -60,8 +60,13 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
     end
 
     if result.code ~= 0 then
+        ---@type string
+        ---@diagnostic disable-next-line: assign-type-mismatch
         local out = result.stderr ~= "" and result.stderr or result.stdout
-        vim.notify_once("Could not format file: " .. out, vim.log.levels.ERROR)
+        local user_file_name = string.gsub(dst_file_path, vim.fn.getcwd() .. "/", "")
+        out = string.gsub(out, temp_file_name, user_file_name)
+
+        vim.notify("Could not format file: " .. out, vim.log.levels.ERROR)
         return false
     end
 
