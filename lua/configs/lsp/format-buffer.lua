@@ -173,10 +173,12 @@ return function()
             "-w",
             "80",
             "--function-case",
-            "1",
+            "2",
             "--type-case",
             "2",
             "--no-space-function",
+            "--comma-start",
+            "--comma-break",
             "--no-rcfile",
             current_file_name,
         }
