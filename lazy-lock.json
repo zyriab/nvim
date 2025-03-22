@@ -73,7 +73,7 @@
   "undotree": { "branch": "master", "commit": "76c4e32d8f1aa493bb68d4a3fcd3c700395c303c" },
   "vim-dbml": { "branch": "master", "commit": "156d574f3838c2694a02b016ff5837de408d64a9" },
   "vim-illuminate": { "branch": "master", "commit": "19cb21f513fc2b02f0c66be70107741e837516a1" },
-  "vscode-js-debug": { "branch": "main", "commit": "299d29f2a7b535115305068dfb531a7f37a05e44" },
+  "vscode-js-debug": { "branch": "main", "commit": "77f4d10d14bd9c8d232e257317f28eb08c1166d4" },
   "webc.nvim": { "branch": "main", "commit": "7cab6dd035d27dd31223d11948de16e16e70de4d" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }
