@@ -3,7 +3,7 @@ return {
     require("plugins.editor.nvim-cmp"),
     require("plugins.editor.indent-blankline"),
     require("plugins.editor.nvim-autopairs"),
-    require("plugins.editor.nvim-colorizer"),
+    require("plugins.editor.nvim-highlight-colors"),
     require("plugins.editor.nvim-comment"),
     require("plugins.editor.nvim-surround"),
     require("plugins.editor.nvim-emmet"),
