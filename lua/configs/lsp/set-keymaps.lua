@@ -40,9 +40,16 @@ return function(bufnr)
     end, "[W]orkspace [L]ist Folders")
 
     -- [[ Diagnostic ]]
-    nmap("[d", vim.diagnostic.goto_prev, "Go to previous [[] [D]iagnostic message")
-    nmap("]d", vim.diagnostic.goto_next, "Go to next []] [D]agnostic message")
+    nmap("[d", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+    end, "Go to previous [[] [D]iagnostic message")
+
+    nmap("]d", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+    end, "Go to next []] [D]agnostic message")
+
     nmap("<leader>dl", vim.diagnostic.setqflist, "Open [D]iagnostics [L]ist")
+
     nmap("<leader>df", function()
         vim.diagnostic.open_float({ source = true })
     end, "Open [D]iagnostic [F]loating window")

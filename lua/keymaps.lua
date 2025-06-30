@@ -51,12 +51,12 @@ vim.keymap.set("t", "<C-t>", vim.cmd.TermToggle, { desc = "Toggle [^][T]erminal"
 -- )
 
 -- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
+-- See `:help vim.hl.on_yank()`
 local group = vim.api.nvim_create_augroup("custom-yank-highlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = group,
     pattern = "*",
     callback = function()
-        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+        vim.hl.on_yank({ higroup = "IncSearch", timeout = 200 })
     end,
 })
