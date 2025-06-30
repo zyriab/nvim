@@ -224,7 +224,6 @@ return function()
     -- mason-lspconfig requires that these setup functions are called in this order
     -- before setting up the servers.
     mason.setup()
-    mason_lspconfig.setup()
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -233,7 +232,7 @@ return function()
     mason_lspconfig.setup({
         ensure_installed = mason_tools_installs,
         automatic_installation = false,
-        automatic_enable = true,
+        automatic_enable = false,
     })
 
     -- Making sure `.h` files are declared as C files and not C++
