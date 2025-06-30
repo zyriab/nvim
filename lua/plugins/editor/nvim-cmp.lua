@@ -76,8 +76,8 @@ return {
                     })(entry, item)
 
                     if color_item.abbr_hl_group then
-                        item.kind_hl_group = color_item.abbr_hl_group
                         item.kind = color_item.abbr
+                        item.kind_hl_group = color_item.abbr_hl_group
                     end
 
                     return item
@@ -112,6 +112,10 @@ return {
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
                 { name = "path" },
+                {
+                    name = "lazydev",
+                    group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+                },
             },
             sorting = {
                 priority_weight = 2,

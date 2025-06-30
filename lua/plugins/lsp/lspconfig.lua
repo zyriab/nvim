@@ -8,7 +8,6 @@ return {
             config = true,
         },
         "williamboman/mason-lspconfig.nvim",
-        "folke/neodev.nvim",
     },
     config = function()
         local setup_autoformat = require("configs.lsp.setup-autoformat")
