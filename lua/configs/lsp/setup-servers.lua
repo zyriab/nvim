@@ -1,4 +1,3 @@
-local neodev = require("neodev")
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -19,7 +18,6 @@ local servers = {
     cssls = {},
     eslint = {},
     marksman = {},
-    nil_ls = {},
     prismals = {},
     taplo = {},
 
@@ -93,7 +91,7 @@ local servers = {
                 "run",
                 "--enable-all",
                 "--disable",
-                "lll,varnamelen,depguard,funlen,gci,godox,godot,gochecknoglobals,exportloopref,gomnd,tagliatelle,execinquery,cyclop,nonamedreturns",
+                "lll,varnamelen,depguard,funlen,gci,godox,godot,gochecknoglobals,exportloopref,gomnd,tagliatelle,execinquery,cyclop,nonamedreturns,contextcheck",
                 "--out-format",
                 "json",
                 "--issues-exit-code=1",
@@ -228,8 +226,6 @@ return function()
     mason.setup()
     mason_lspconfig.setup()
 
-    neodev.setup()
-
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
@@ -237,6 +233,7 @@ return function()
     mason_lspconfig.setup({
         ensure_installed = mason_tools_installs,
         automatic_installation = false,
+        automatic_enable = true,
     })
 
     -- Making sure `.h` files are declared as C files and not C++
