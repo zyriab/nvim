@@ -17,3 +17,5 @@ require("keymaps")
 
 -- [[ QuickFix keymaps ]]
 -- require("quickfix")
+
+vim.diagnostic.config({ virtual_text = true })
