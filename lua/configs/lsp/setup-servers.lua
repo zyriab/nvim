@@ -89,12 +89,13 @@ local servers = {
             command = {
                 "golangci-lint",
                 "run",
-                "--enable-all",
+                "--default",
+                "all",
+                "--output.json.path",
+                "stdout",
+                "--show-stats=false",
                 "--disable",
-                "lll,varnamelen,depguard,funlen,gci,godox,godot,gochecknoglobals,exportloopref,gomnd,tagliatelle,execinquery,cyclop,nonamedreturns,contextcheck",
-                "--out-format",
-                "json",
-                "--issues-exit-code=1",
+                "lll,varnamelen,depguard,funlen,godox,godot,gochecknoglobals,tagliatelle,cyclop,nonamedreturns,contextcheck,noinlineerr",
             },
         },
         filetypes = {
