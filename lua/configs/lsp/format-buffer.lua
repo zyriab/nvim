@@ -21,6 +21,11 @@ local prettier_types = {
 return function()
     local filetype = vim.bo.filetype
 
+    -- [[ Markdown ]]
+    if filetype == filetypes.markdown then
+        return
+    end
+
     -- [[ C/C++/Arduino ]]
     if vim.tbl_contains(clang_types, filetype) then
         if vim.fn.executable("clang-format") ~= 1 then
@@ -129,8 +134,8 @@ return function()
         return
     end
 
-    -- [[ WebC/Markdown ]]
-    if filetype == filetypes.webc or filetype == filetypes.markdown then
+    -- [[ WebC ]]
+    if filetype == filetypes.webc then
         formatters.lsp_format_skip_frontmatter()
 
         return
