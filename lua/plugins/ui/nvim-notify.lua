@@ -15,6 +15,7 @@ return {
         -- This is needed because, otherwise, the diagnostic float
         -- would not open except on line 1
         notify.setup({
+            merge_duplicates = true,
             background_colour = "#000000",
             render = "wrapped-compact",
             stages = "fade",
