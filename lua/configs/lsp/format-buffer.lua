@@ -1,5 +1,4 @@
 local filetypes = require("utils.filetypes")
-local ux = require("utils.ux")
 local formatters = require("utils.formatters")
 
 local clang_types = {
@@ -16,6 +15,34 @@ local prettier_types = {
     filetypes.json,
     filetypes.css,
 }
+
+-- List of all possible prettier config file names
+local prettier_config_files = {
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.yml",
+    ".prettierrc.yaml",
+    ".prettierrc.json5",
+    ".prettierrc.js",
+    ".prettierrc.cjs",
+    ".prettierrc.mjs",
+    ".prettierrc.toml",
+    "prettier.config.js",
+    "prettier.config.cjs",
+    "prettier.config.mjs",
+}
+
+local function find_prettier_config(root_path)
+    for _, config_file in ipairs(prettier_config_files) do
+        local config_path = vim.fn.resolve(root_path .. "/" .. config_file)
+
+        if vim.fn.filereadable(config_path) == 1 then
+            return config_path
+        end
+    end
+
+    return nil
+end
 
 --- Format current buffer based on filetype. Fallbacks to nvim-lsp formatter.
 return function()
@@ -96,10 +123,30 @@ return function()
         end
 
         local current_file_name = vim.fn.expand("%")
-        local absolute_path = vim.fn.expand("%:p:h")
-        local prettier_config = absolute_path .. "/" .. vim.fn.expand(".prettierrc*")
+        local project_root = vim.fs.root(0, ".git") or "./"
+        local prettier_config = find_prettier_config(project_root)
+
+        if prettier_config == nil then
+            vim.notify("Prettier configuration file could not be found, using LSP formatter", vim.log.levels.ERROR)
+            goto FALLBACK
+        end
+
+        local bufnr = vim.api.nvim_get_current_buf()
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+        local buf_content = table.concat(lines, "\n")
+
+        -- echo [file contents] | prettierd --no-color --parser=[parser] [filename]
+        local cmd = {
+            "sh",
+            "-c",
+            "echo "
+                .. vim.fn.shellescape(buf_content)
+                .. " | /usr/local/bin/prettierd --no-color --parser="
+                .. parser
+                .. " "
+                .. vim.fn.shellescape(current_file_name),
+        }
         local env = { PRETTIERD_DEFAULT_CONFIG = prettier_config }
-        local cmd = { "prettierd", "--no-color", "--parser=" .. parser, current_file_name }
 
         local ok = formatters.run_command_on_buffer(cmd, env)
 
