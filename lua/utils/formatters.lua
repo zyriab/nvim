@@ -77,7 +77,13 @@ M.run_command_on_buffer = function(cmd, env, bufnr)
         table.remove(formatted)
     end
 
+    -- Saving the folds state
+    vim.cmd([[ mkview ]])
+
     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, formatted)
+
+    -- Restoring folds
+    vim.cmd([[ loadview ]])
 
     return true
 end
