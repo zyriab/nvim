@@ -144,7 +144,6 @@ return function()
                 .. " | /usr/local/bin/prettierd "
                 .. "--no-color --parser="
                 .. parser
-                .. " "
                 .. " --stdin-filepath "
                 .. vim.fn.shellescape(current_file_name),
         }
