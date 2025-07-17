@@ -135,15 +135,17 @@ return function()
         local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
         local buf_content = table.concat(lines, "\n")
 
-        -- echo [file contents] | prettierd --no-color --parser=[parser] [filename]
+        -- sh -c echo [file contents] | /usr/local/bin/prettierd --no-color --parser=[parser] [filename]
         local cmd = {
             "sh",
             "-c",
-            "echo "
+            "printf %s "
                 .. vim.fn.shellescape(buf_content)
-                .. " | /usr/local/bin/prettierd --no-color --parser="
+                .. " | /usr/local/bin/prettierd "
+                .. "--no-color --parser="
                 .. parser
                 .. " "
+                .. " --stdin-filepath "
                 .. vim.fn.shellescape(current_file_name),
         }
         local env = { PRETTIERD_DEFAULT_CONFIG = prettier_config }
