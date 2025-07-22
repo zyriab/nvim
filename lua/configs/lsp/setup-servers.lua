@@ -46,6 +46,20 @@ local servers = {
         },
     },
 
+    gh_actions_ls = {
+        cmd = { "gh-actions-language-server", "--stdio" },
+        filetypes = { "yaml.github" },
+        root_dir = lspconfig.util.root_pattern(".github"),
+        single_file_support = true,
+        capabilities = {
+            workspace = {
+                didChangeWorkspaceFolders = {
+                    dynamicRegistration = true,
+                },
+            },
+        },
+    },
+
     ---@url https://github.com/golang/tools/tree/master/gopls/doc
     gopls = {
         cmd = { "gopls", "--remote=auto" },
