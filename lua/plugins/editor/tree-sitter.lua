@@ -107,6 +107,8 @@ return {
 
             vim.api.nvim_set_hl(0, "@tag.attribute.html", { link = "Type" })
             vim.api.nvim_set_hl(0, "@tag.attribute.templ", { link = "Type" })
+            vim.api.nvim_set_hl(0, "@tag.attribute.tsx", { link = "Type" })
+            vim.api.nvim_set_hl(0, "@tag.attribute.typescriptreact", { link = "Type" })
         end, 0)
     end,
 }
