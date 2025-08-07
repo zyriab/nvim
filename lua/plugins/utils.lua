@@ -13,4 +13,5 @@ return {
     require("plugins.utils.global-note"),
     require("plugins.utils.outline"),
     require("plugins.utils.gopher"),
+    require("plugins.utils.copilot"),
 }

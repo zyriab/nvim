@@ -71,6 +71,7 @@ return {
                     item = lspkind.cmp_format({
                         mode = "symbol_text",
                         maxwidth = 50,
+                        symbol_map = { Copilot = "" },
                         ellipsis_char = "",
                         show_labelDetails = true,
                     })(entry, item)
@@ -110,6 +111,7 @@ return {
             }),
             sources = {
                 { name = "nvim_lsp" },
+                { name = "copilot" },
                 { name = "luasnip" },
                 { name = "path" },
                 {
@@ -120,6 +122,9 @@ return {
             sorting = {
                 priority_weight = 2,
                 comparators = {
+                    -- Making sure that poor Copilot suggestions are not prioritized
+                    cmp.config.compare.exact,
+                    require("copilot_cmp.comparators").prioritize,
                     -- Below is the default comparitor list and order for nvim-cmp except for `exact`
                     cmp.config.compare.offset,
                     -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
