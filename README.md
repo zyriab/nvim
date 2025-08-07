@@ -7,11 +7,11 @@ Current Neovim config, rewritten early February 2024
 - Go (DAP)
 - Templ
 - htmx
+- _hyperscript
 - SQL
 - HTML
 - CSS
 - TailwindCSS
-- WebC (HTML superset)
 - JS/TS (JSDoc & DAP)
 - React
 - C (basic config w/ DAP - to be improved)
