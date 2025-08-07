@@ -19,4 +19,6 @@ require("keymaps")
 -- require("quickfix")
 
 vim.filetype.add({ pattern = { [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml.github" } })
+vim.filetype.add({ extension = { _hs = "hyperscript" } })
+
 vim.diagnostic.config({ virtual_text = true })

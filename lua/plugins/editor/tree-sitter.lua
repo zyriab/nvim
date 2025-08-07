@@ -105,6 +105,19 @@ return {
                 },
             })
 
+            local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+            ---@diagnostic disable-next-line: inject-field
+            parser_config.hyperscript = {
+                install_info = {
+                    url = "https://github.com/mbaraa/tree-sitter-hyperscript.git",
+                    files = { "src/parser.c" },
+                    branch = "main",
+                },
+                filetype = "hyperscript",
+            }
+
+            vim.treesitter.language.register("hyperscript", "hyperscript")
+
             vim.api.nvim_set_hl(0, "@tag.attribute.html", { link = "Type" })
             vim.api.nvim_set_hl(0, "@tag.attribute.templ", { link = "Type" })
             vim.api.nvim_set_hl(0, "@tag.attribute.tsx", { link = "Type" })
